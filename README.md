@@ -42,10 +42,10 @@ sudo systemctl enable zabbix-server zabbix-agent apache2
 4. Добавьте Zabbix Agentов в раздел Configuration > Hosts вашего Zabbix Servera.
 5. Проверьте, что в разделе Latest Data начали появляться данные с добавленных агентов.
 
-![alt text](https://github.com/asad-bekov/hw-02/blob/main/img/img1.png)
-![alt text](https://github.com/asad-bekov/hw-02/blob/main/img/img2.png)
-![alt text](https://github.com/asad-bekov/hw-02/blob/main/img/img3.png)
-![alt text](https://github.com/asad-bekov/hw-02/blob/main/img/img4.png)
-![alt text](https://github.com/asad-bekov/hw-02/blob/main/img/img5.png)
+![](https://github.com/asad-bekov/hw-02/blob/main/img/image_1.png)
+![](https://github.com/asad-bekov/hw-02/blob/main/img/image_2.png)
+![](https://github.com/asad-bekov/hw-02/blob/main/img/image_3.png)
+![](https://github.com/asad-bekov/hw-02/blob/main/img/image_4.png)
+![](https://github.com/asad-bekov/hw-02/blob/main/img/image_5.png)
 
 
