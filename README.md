@@ -1,51 +1,57 @@
-# Установка Zabbix Server и Zabbix Agent
-*Асадбеков Асадбек*
 
-## Задание 1: 
+# Домашнее задание «Система мониторинга Zabbix. Часть 2»
 
-Установка Zabbix Server 
+## Задание 1
 
-## Процесс выполнения
+**Создание шаблона в Zabbix с элементами данных для мониторинга загрузки CPU и RAM.**
 
-1. Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
-2. Установите PostgreSQL. Для установки достаточна та версия, что есть в системном репозитороии Debian 11.
-3. Пользуясь конфигуратором команд с официального сайта, составьте набор команд для установки последней версии Zabbix с поддержкой PostgreSQL и Apache.
-4. Выполните все необходимые команды для установки Zabbix Server и Zabbix Web Server.
+1. В разделе **Конфигурация** → **Шаблоны** был создан новый шаблон.
+2. Добавлены два элемента данных:
+   - **CPU Utilization:** мониторинг загрузки CPU в процентах с использованием ключа `system.cpu.util[all,user]`.
+   - **RAM Utilization:** мониторинг использования RAM в процентах с использованием ключа `vm.memory.util[available]`.
+3. Шаблон успешно сохранен и может быть привязан к хостам.
 
-### Команды:
-```bash
-sudo apt update
-sudo apt install postgresql -y
-sudo -u postgres psql
-CREATE USER zabbix WITH PASSWORD '12345';
-CREATE DATABASE zabbix OWNER zabbix;
-\q
-wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_latest+debian11_all.deb
-sudo dpkg -i zabbix-release_latest+debian11_all.deb
-sudo apt update
-sudo apt install zabbix-server-pgsql zabbix-frontend-php php7.4-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent -y
-zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
-sudo sed -i 's/# DBPassword=/DBPassword=12345/g' /etc/zabbix/zabbix_server.conf
-sudo systemctl restart zabbix-server zabbix-agent apache2
-sudo systemctl enable zabbix-server zabbix-agent apache2
-```
+![Задание 1](path_to_screenshot1.png)
 
-## Задание 2
+---
 
-Установите Zabbix Agent на два хоста.
+## Задание 2-3
+**Добавление двух хостов в Zabbix и привязка шаблонов.**
 
-## Процесс выполнения
+1. На двух виртуальных машинах был установлен Zabbix Agent.
+2. Добавлены хосты в Zabbix с именами `Asadbekov_AD-1` и `Asadbekov_AD-1`.
+3. К каждому хосту привязаны два шаблона:
+   - **Linux by Zabbix Agent**.
+   - Шаблон, созданный в задании 1.
+4. Убедились, что данные поступают в **Последние данные**.
 
-1. Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
-2. Установите Zabbix Agent на 2 вирт.машины, одной из них может быть ваш Zabbix Server.
-3. Добавьте Zabbix Server в список разрешенных серверов ваших Zabbix Agentов.
-4. Добавьте Zabbix Agentов в раздел Configuration > Hosts вашего Zabbix Servera.
-5. Проверьте, что в разделе Latest Data начали появляться данные с добавленных агентов.
+![Задание 2-3](path_to_screenshot2-3.png)
 
-![](https://github.com/asad-bekov/hw-02/blob/main/img/image_1.png)
-![](https://github.com/asad-bekov/hw-02/blob/main/img/image_2.png)
-![](https://github.com/asad-bekov/hw-02/blob/main/img/image_3.png)
-![](https://github.com/asad-bekov/hw-02/blob/main/img/image_4.png)
-![](https://github.com/asad-bekov/hw-02/blob/main/img/image_5.png)
+---
 
+## Задание 4
+**Создание пользовательского дашборда.**
 
+1. Перешел в раздел **Мониторинг** → **Дашборды**.
+2. Создал новый дашборд, на котором размещены графики:
+   - Загрузка CPU.
+   - Использование RAM.
+   - Статус хостов.
+3. Настроены удобные виджеты для отображения ключевых данных.
+
+![Задание 4](path_to_screenshot4.png)
+
+---
+
+## Задание 5
+**Создание карты и настройка триггера.**
+
+1. В разделе **Конфигурация** → **Карты** создана новая карта.
+2. Размещены два хоста из задания 2-3.
+3. Между хостами настроена связь:
+   - К связи привязан триггер, связанный с `agent.ping`.
+   - При срабатывании триггера цвет линии меняется на красный пунктир.
+4. Один из хостов был выключен, чтобы проверить срабатывание триггера. Связь отобразилась красной пунктирной линией.
+
+![Задание 5](path_to_screenshot5.png)
+![Задание 5](path_to_screenshot5.png)
